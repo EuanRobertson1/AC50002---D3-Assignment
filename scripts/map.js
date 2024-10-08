@@ -1,3 +1,5 @@
+//script created following this guide - https://developers.google.com/maps/documentation/javascript/adding-a-google-map#javascript
+
 //aquire API key from .env file
 require('dotenv').config();
 
@@ -11,7 +13,24 @@ const googleMapsKey = process.env.GOOGLE_MAPS_API_KEY;
    
 });
 
-//init map var
+//add map var
 let map;
 
+//init map function
+async function initMap()
+{
+    //lat and long of where map will centre on
+    const position = { lat:55.191036, lng: -2.551569 };
 
+    //get map libraries
+    const { Map } = await google.maps.importLibrary("maps");
+
+    // The map, centred on the UK
+  map = new Map(document.getElementById("map"), {
+    zoom: 4,
+    center: position,
+    mapId: "DEMO_MAP_ID",
+  });
+}
+
+initMap();
