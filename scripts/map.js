@@ -10,3 +10,8 @@ const googleMapsKey = process.env.GOOGLE_MAPS_API_KEY;
     v: "weekly",
    
 });
+
+//init map var
+let map;
+
+
