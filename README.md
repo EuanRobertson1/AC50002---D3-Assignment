@@ -8,7 +8,7 @@
 - Use additional details from the .json file to enchance the map
 - Add a button that reloads the data and plots a new set of towns 
 
-## Strech Requirements
+## Stretch Requirements
 - Hovering over a town will provide more details such as population
 - Add animations to new data being plotted
 - Add a slider that allows user to select the number of towns loaded
