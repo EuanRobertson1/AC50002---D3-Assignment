@@ -1,28 +1,32 @@
-// Set the dimensions of the SVG container
+//Set the dimensions of the SVG container
 const width = 650;
 const height = 600;
 
-// Create an SVG element
+//Create an SVG element
 const svg = d3.select("svg")
   .attr("width", width)
   .attr("height", height);
 
-// Set up a projection for the UK map
+//projection
 const projection = d3.geoNaturalEarth1()
-  .center([-3.5, 55.4]) // Center the map on the UK
-  .scale(3350)          // Adjust the scale for the UK
+  .center([-3.5, 55.4]) 
   .translate([width / 2, height / 2]);
 
-// Create a path generator using the projection
+//Create a path generator using the projection
 const path = d3.geoPath().projection(projection);
 
-// Load the TopoJSON data from the URL
+//Load the map data for UK
 d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(worldData => {
-  // Extract the GeoJSON feature for the United Kingdom (country code: 826)
   const countries = topojson.feature(worldData, worldData.objects.countries).features;
-  const uk = countries.filter(d => d.id === "826"); // United Kingdom's country code is 826
+  const uk = countries.filter(d => d.id === "826"); 
 
-  // Bind the UK data and create one path per feature
+  //add blue rectangle to represent the sea
+  svg.append('rect')
+    .attr("width", width)
+    .attr("height", height)
+    .attr('fill', '#87CEEB');
+
+  //add UK
   svg.selectAll('path')
     .data(uk)
     .enter().append('path')
