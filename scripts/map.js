@@ -27,7 +27,7 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
     .data(uk)
     .enter().append('path')
     .attr('d', path)
-    .attr('fill', '#69b3a2')
+    .attr('fill', '#3f9b0b')
     .attr('stroke', '#000')
     .attr('stroke-width', 0.5);
 }).catch(error => {
