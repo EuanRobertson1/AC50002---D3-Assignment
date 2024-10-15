@@ -1,5 +1,5 @@
 // Set the dimensions of the SVG container
-const width = 960;
+const width = 650;
 const height = 600;
 
 // Create an SVG element
@@ -10,7 +10,7 @@ const svg = d3.select("svg")
 // Set up a projection for the UK map
 const projection = d3.geoNaturalEarth1()
   .center([-3.5, 55.4]) // Center the map on the UK
-  .scale(3000)          // Adjust the scale for the UK
+  .scale(3350)          // Adjust the scale for the UK
   .translate([width / 2, height / 2]);
 
 // Create a path generator using the projection
