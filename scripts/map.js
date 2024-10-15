@@ -9,7 +9,8 @@ const svg = d3.select("svg")
 
 //projection
 const projection = d3.geoNaturalEarth1()
-  .center([-3.5, 55.4]) 
+  .center([-3.5, 55.4])
+  .scale(3320) 
   .translate([width / 2, height / 2]);
 
 //Create a path generator using the projection
