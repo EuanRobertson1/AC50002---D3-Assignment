@@ -8,9 +8,9 @@ const svg = d3.select("svg")
   .attr("height", height);
 
 //projection
-const projection = d3.geoNaturalEarth1()
+const projection = d3.geoMercator()
   .center([-3.5, 55.4])
-  .scale(3320) 
+  .scale(1650) 
   .translate([width / 2, height / 2]);
 
 //Create a path generator using the projection
@@ -20,6 +20,7 @@ const path = d3.geoPath().projection(projection);
 d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(worldData => {
   const countries = topojson.feature(worldData, worldData.objects.countries).features;
   const uk = countries.filter(d => d.id === "826"); 
+  const isleOfMan = countries.filter(d => d.id === "833");
 
   //add blue rectangle to represent the sea
   svg.append('rect')
@@ -28,13 +29,24 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
     .attr('fill', '#87CEEB');
 
   //add UK
-  svg.selectAll('path')
+  svg.selectAll('path.uk')
     .data(uk)
     .enter().append('path')
     .attr('d', path)
     .attr('fill', '#3f9b0b')
     .attr('stroke', '#000')
     .attr('stroke-width', 0.5);
+  //add Isle of Man
+  svg.selectAll('path.isleOfMan')
+    .data(isleOfMan)
+    .enter().append('path')
+    .attr('d', path)
+    .attr('fill', '#3f9b0b')
+    .attr('stroke', '#000')
+    .attr('stroke-width', 0.5);
+
+  
+
 }).catch(error => {
   console.error('Error loading or parsing the TopoJSON file:', error);
 });
