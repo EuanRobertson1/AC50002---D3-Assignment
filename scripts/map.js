@@ -2,6 +2,9 @@
 const width = 900;
 const height = 600;
 
+//set default number of towns loaded
+let townNum = 50;
+
 
 //Create an SVG element
 const svg = d3.select("svg")
@@ -57,35 +60,42 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
   console.error('Error loading or parsing the TopoJSON file:', error);
 });
 
-//load towns data
-d3.json("http://34.147.162.172/Circles/Towns/50").then(function(data) {
-  
-  //extract coords. Asked ChatGPT with prompt "how would i convert the lat and long values to pixels for use with d3 in this json file?"
-  data.forEach(function(d) {
-    var coords = getPixelCoordinates(d);
-    d.x = coords[0];
-    d.y = coords[1];
-  });
-  
-  //plot circles 
-  g.selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", function(d) { return d.x; })
-    .attr("cy", function(d) { return d.y; })
-    .attr("r", 3)
-    .attr("fill", "blue");
+//function to load the towns onto the map
+function loadTowns()
+{
+  //load towns data
+  d3.json("http://34.147.162.172/Circles/Towns/" + townNum).then(function(data) {
+    
+    //extract coords. Asked ChatGPT with prompt "how would i convert the lat and long values to pixels for use with d3 in this json file?"
+    data.forEach(function(d) {
+      var coords = getPixelCoordinates(d);
+      d.x = coords[0];
+      d.y = coords[1];
+    });
+    
+    //plot circles 
+    g.selectAll("circle")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; })
+      .attr("r", 3)
+      .attr("fill", "blue");
 
-  //applying zoom to group
-  svg.call(zoom.on("zoom", function(event) {
-    g.attr("transform", event.transform);
-  }));
+    //applying zoom to group
+    svg.call(zoom.on("zoom", function(event) {
+      g.attr("transform", event.transform);
+    }));
 
-})
+  })
+}
 
 //function to convert lat long to pixel coords. Asked ChatGPT with prompt "how would i convert the lat and long values to pixels for use with d3 in this json file?"
 function getPixelCoordinates(d) {
   return projection([d.lng, d.lat]);
 }
+
+//load towns when window is loaded
+window.onLoad = loadTowns();
 
