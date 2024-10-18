@@ -50,8 +50,6 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
     .attr('stroke', '#000')
     .attr('stroke-width', 0.5);
   
-
- 
 }).catch(error => {
   console.error('Error loading or parsing the TopoJSON file:', error);
 });
@@ -75,7 +73,7 @@ function loadTowns(n)
 
     g.selectAll("text")
       .remove();
-      
+
     //plot circles 
     g.selectAll("circle")
       .data(data)
