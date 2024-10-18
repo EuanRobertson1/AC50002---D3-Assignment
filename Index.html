@@ -9,10 +9,25 @@
   <link rel ="stylesheet" href = "css/styles.css">
 </head>
 <body>
-  <H1 class =>UK Towns & Cities</H1>
-  <div class = "map">
-    <svg></svg>
-  </div>
+  <h1>UK Towns & Cities</h1>
+
+  <div class = "container">
+
+    <div class = "map">
+
+      <svg></svg>
+    </div>
+    
+    <div class = "menu">
+
+      <h1 class = "menuTitle">Map Options</h2>
+      <button onclick ="loadTowns(n = returnSliderValue())">Reload Towns</button>
+      <p class = "townNumber"></p>
+      <input type = "range" class = "slider" id="townSlider" min = "1" max = "500" value = "250">
+      <p class = "sliderValue">Value: <span id = "value"></span></p>
+    </div>
+</div>
+  
   <script src="scripts/map.js"></script>
 </body>
 </html>

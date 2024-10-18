@@ -1,16 +1,62 @@
 body {
     margin: 0;
+    background: #939393;
   }
 
-  svg {
-   border:10px solid black
-  }
-
-.map{
-  position: relative;
-  top: 5px;;
+svg {
+  border:5px solid black;
+  border-radius: 25px;
 }
-
+.container
+{
+  position: fixed;  
+  padding: 0;
+  margin: 0; 
+}
+.map {
+  margin-left:5px;
+  float: left;
+}
+.menu {
+  float: left;
+  margin-left: 100px;
+  border:5px solid black;
+  border-radius: 25px;
+  width: 500px;
+  height: 600px;
+  background: #ffffff;
+}
+.menuTitle {
+  text-align: center;
+}
+button {
+  padding: 7px;
+  border:3px solid black;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-left: 155px;
+  font-size: 30px;
+}
 h1{
   font-family:'Courier New', Courier, monospace ;
+  margin-left: 20px;
+}
+p
+{
+  font-family:'Courier New', Courier, monospace ;
+}
+.townNumber
+{
+  margin-left: 50px;
+  font-size: 30px;
+  
+}
+.slider
+{
+  width: 400px;
+  margin-left: 50px;
+}
+.sliderValue
+{
+  margin-left: 50px;
 }
