@@ -58,7 +58,7 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
 });
 
 //load towns data
-d3.json("http://34.147.162.172/Circles/Towns/500").then(function(data) {
+d3.json("http://34.147.162.172/Circles/Towns/50").then(function(data) {
   
   //extract coords. Asked ChatGPT with prompt "how would i convert the lat and long values to pixels for use with d3 in this json file?"
   data.forEach(function(d) {
