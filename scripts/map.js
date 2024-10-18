@@ -2,8 +2,6 @@
 const width = 900;
 const height = 600;
 
-
-
 //Create an SVG element
 const svg = d3.select("svg")
   .attr("width", width)
