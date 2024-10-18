@@ -2,10 +2,6 @@
 const width = 900;
 const height = 600;
 
-//set default number of towns loaded
-let townNum = 50;
-
-
 //Create an SVG element
 const svg = d3.select("svg")
   .attr("width", width)
@@ -60,11 +56,11 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
   console.error('Error loading or parsing the TopoJSON file:', error);
 });
 
-//function to load the towns onto the map
-function loadTowns()
+//function to load the towns onto the map where n is the number of towns
+function loadTowns(n)
 {
   //load towns data
-  d3.json("http://34.147.162.172/Circles/Towns/" + townNum).then(function(data) {
+  d3.json("http://34.147.162.172/Circles/Towns/" + n).then(function(data) {
     
     //extract coords. Asked ChatGPT with prompt "how would i convert the lat and long values to pixels for use with d3 in this json file?"
     data.forEach(function(d) {
@@ -73,6 +69,12 @@ function loadTowns()
       d.y = coords[1];
     });
     
+    //remove old text & circles (if any)
+    g.selectAll("circle")
+      .remove();
+
+    g.selectAll("text")
+      .remove();
     //plot circles 
     g.selectAll("circle")
       .data(data)
@@ -80,8 +82,19 @@ function loadTowns()
       .append("circle")
       .attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; })
-      .attr("r", 3)
+      .attr("r", 2)
       .attr("fill", "blue");
+
+    //add town names 
+    g.selectAll("text")
+      .data(data)
+      .enter()
+      .append("text")
+      .attr("x", function(d) { return d.x + 3; })//with offset so text appears next to circle
+      .attr("y", function(d) { return d.y; }) 
+      .text(function(d) { return d.Town; }) 
+      .attr("font-size", "5px") 
+      .attr("fill", "black"); 
 
     //applying zoom to group
     svg.call(zoom.on("zoom", function(event) {
@@ -89,6 +102,11 @@ function loadTowns()
     }));
 
   })
+
+  //display number of towns/cities loaded
+  d3.select(".townNumber")
+    .text("Currently displaying " + n + " towns/cities");
+  
 }
 
 //function to convert lat long to pixel coords. Asked ChatGPT with prompt "how would i convert the lat and long values to pixels for use with d3 in this json file?"
@@ -96,6 +114,6 @@ function getPixelCoordinates(d) {
   return projection([d.lng, d.lat]);
 }
 
-//load towns when window is loaded
-window.onLoad = loadTowns();
+//load 50 towns when window is loaded
+window.onLoad = loadTowns(50);
 
