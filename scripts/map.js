@@ -36,7 +36,7 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
     .attr('fill', '#3f9b0b')
     .attr('stroke', '#000')
     .attr('stroke-width', 0.5);
-  //add Isle of Man
+  //add Isle of Man 
   svg.selectAll('path.isleOfMan')
     .data(isleOfMan)
     .enter().append('path')
@@ -52,6 +52,30 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
 });
 
 //load towns data
-d3.json("http://34.147.162.172/Circles/Towns/500").then(townData => {
+d3.json("http://34.147.162.172/Circles/Towns/500").then(function(data) {
   
+  //extract coords. Asked ChatGPT with prompt "how would i convert the lat and long values to pixels for use with d3 in this json file?"
+  data.forEach(function(d) {
+    var coords = getPixelCoordinates(d);
+    d.x = coords[0];
+    d.y = coords[1];
+  });
+  
+  //plot circles 
+  svg.selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cx", function(d) { return d.x; })
+    .attr("cy", function(d) { return d.y; })
+    .attr("r", 5)
+    .attr("fill", "blue");
+
+  
+
 })
+
+//function to convert lat long to pixel coords. Asked ChatGPT with prompt "how would i convert the lat and long values to pixels for use with d3 in this json file?"
+function getPixelCoordinates(d) {
+  return projection([d.lng, d.lat]);
+}
