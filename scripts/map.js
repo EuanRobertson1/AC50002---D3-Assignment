@@ -13,7 +13,7 @@ const projection = d3.geoMercator()
   .scale(1750) 
   .translate([width / 2, height / 2]);
 
-//Create a path generator using the projection
+//Create a path using the projection
 const path = d3.geoPath().projection(projection);
 
 //Zoom functionality - Adapted from https://stackoverflow.com/questions/69268997/d3-zoomable-choropleth-map and ChatGPT "how would i add a zoom feature to this D3 map?"
