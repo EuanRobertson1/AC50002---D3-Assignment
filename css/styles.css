@@ -43,7 +43,12 @@ h1{
 }
 .townNumber
 {
-  margin-left: 20px;
+  margin-left: 50px;
   font-size: 30px;
   font-family:'Courier New', Courier, monospace ;
+}
+.slider
+{
+  width: 400px;
+  margin-left: 50px;
 }
