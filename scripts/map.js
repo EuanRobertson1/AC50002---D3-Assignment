@@ -1,5 +1,5 @@
 //Set the dimensions of the SVG container
-const width = 650;
+const width = 500;
 const height = 600;
 
 //Create an SVG element
@@ -9,14 +9,14 @@ const svg = d3.select("svg")
 
 //projection
 const projection = d3.geoMercator()
-  .center([-3.5, 55.4])
-  .scale(1650) 
+  .center([-3.5, 55.9])
+  .scale(1750) 
   .translate([width / 2, height / 2]);
 
 //Create a path generator using the projection
 const path = d3.geoPath().projection(projection);
 
-//Load the map data for UK
+//Load the map data
 d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(worldData => {
   const countries = topojson.feature(worldData, worldData.objects.countries).features;
   const uk = countries.filter(d => d.id === "826"); 
@@ -50,3 +50,8 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
 }).catch(error => {
   console.error('Error loading or parsing the TopoJSON file:', error);
 });
+
+//load towns data
+d3.json("http://34.147.162.172/Circles/Towns/500").then(townData => {
+  
+})
