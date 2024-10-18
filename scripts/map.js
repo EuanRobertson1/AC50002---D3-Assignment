@@ -115,6 +115,17 @@ function getPixelCoordinates(d) {
   return projection([d.lng, d.lat]);
 }
 
+
+
+//slider stuff
+var slider = document.getElementById("townSlider");
+var output = document.getElementById("value");
+output.innerHTML = slider.value;
+
+//update slider value 
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
 //load 50 towns when window is loaded
 window.onLoad = loadTowns(50);
 
