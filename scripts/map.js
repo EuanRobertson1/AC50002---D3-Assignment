@@ -16,6 +16,19 @@ const projection = d3.geoMercator()
 //Create a path generator using the projection
 const path = d3.geoPath().projection(projection);
 
+//Zoom functionality - Adapted from https://stackoverflow.com/questions/69268997/d3-zoomable-choropleth-map
+const zoom = d3.zoom()
+  .scaleExtent([1, 8])
+  .on("zoom", function(event) {
+    svg.attr("transform", event.transform);
+  });
+
+  svg.call(zoom);
+
+  
+//group for map and towns (to assist zooming)
+const g = svg.append("g");
+
 //Load the map data
 d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(worldData => {
   const countries = topojson.feature(worldData, worldData.objects.countries).features;
@@ -23,13 +36,13 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
   const isleOfMan = countries.filter(d => d.id === "833");
 
   //add blue rectangle to represent the sea
-  svg.append('rect')
+  g.append('rect')
     .attr("width", width)
     .attr("height", height)
     .attr('fill', '#87CEEB');
 
   //add UK
-  svg.selectAll('path.uk')
+  g.selectAll('path.uk')
     .data(uk)
     .enter().append('path')
     .attr('d', path)
@@ -37,7 +50,7 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
     .attr('stroke', '#000')
     .attr('stroke-width', 0.5);
   //add Isle of Man 
-  svg.selectAll('path.isleOfMan')
+  g.selectAll('path.isleOfMan')
     .data(isleOfMan)
     .enter().append('path')
     .attr('d', path)
@@ -45,11 +58,12 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
     .attr('stroke', '#000')
     .attr('stroke-width', 0.5);
 
-  
-
+ 
 }).catch(error => {
   console.error('Error loading or parsing the TopoJSON file:', error);
 });
+
+
 
 //load towns data
 d3.json("http://34.147.162.172/Circles/Towns/500").then(function(data) {
@@ -62,7 +76,7 @@ d3.json("http://34.147.162.172/Circles/Towns/500").then(function(data) {
   });
   
   //plot circles 
-  svg.selectAll("circle")
+  g.selectAll("circle")
     .data(data)
     .enter()
     .append("circle")
@@ -71,7 +85,9 @@ d3.json("http://34.147.162.172/Circles/Towns/500").then(function(data) {
     .attr("r", 5)
     .attr("fill", "blue");
 
-  
+  svg.call(zoom.on("zoom", function(event) {
+    g.attr("transform", event.transform);
+  }));
 
 })
 
@@ -79,3 +95,4 @@ d3.json("http://34.147.162.172/Circles/Towns/500").then(function(data) {
 function getPixelCoordinates(d) {
   return projection([d.lng, d.lat]);
 }
+
