@@ -75,6 +75,7 @@ function loadTowns(n)
 
     g.selectAll("text")
       .remove();
+      
     //plot circles 
     g.selectAll("circle")
       .data(data)
@@ -82,6 +83,7 @@ function loadTowns(n)
       .append("circle")
       .attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; })
+      .transition()
       .attr("r", 2)
       .attr("fill", "blue");
 
@@ -92,6 +94,7 @@ function loadTowns(n)
       .append("text")
       .attr("x", function(d) { return d.x + 3; })//with offset so text appears next to circle
       .attr("y", function(d) { return d.y; }) 
+      .transition()
       .text(function(d) { return d.Town; }) 
       .attr("font-size", "5px") 
       .attr("fill", "black"); 
