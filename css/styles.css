@@ -41,3 +41,9 @@ h1{
   font-family:'Courier New', Courier, monospace ;
   margin-left: 20px;
 }
+.townNumber
+{
+  margin-left: 20px;
+  font-size: 30px;
+  font-family:'Courier New', Courier, monospace ;
+}
