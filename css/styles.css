@@ -41,14 +41,22 @@ h1{
   font-family:'Courier New', Courier, monospace ;
   margin-left: 20px;
 }
+p
+{
+  font-family:'Courier New', Courier, monospace ;
+}
 .townNumber
 {
   margin-left: 50px;
   font-size: 30px;
-  font-family:'Courier New', Courier, monospace ;
+  
 }
 .slider
 {
   width: 400px;
+  margin-left: 50px;
+}
+.sliderValue
+{
   margin-left: 50px;
 }
