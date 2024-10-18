@@ -2,6 +2,8 @@
 const width = 900;
 const height = 600;
 
+
+
 //Create an SVG element
 const svg = d3.select("svg")
   .attr("width", width)
@@ -54,8 +56,8 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
   console.error('Error loading or parsing the TopoJSON file:', error);
 });
 
-//function to load the towns onto the map where n is the number of towns
-function loadTowns(n)
+//function to load the towns onto the map using the current slider value as a parameter
+function loadTowns(n = returnSliderValue())
 {
   //load towns data
   d3.json("http://34.147.162.172/Circles/Towns/" + n).then(function(data) {
@@ -115,17 +117,24 @@ function getPixelCoordinates(d) {
   return projection([d.lng, d.lat]);
 }
 
-
-
 //slider stuff
 var slider = document.getElementById("townSlider");
 var output = document.getElementById("value");
 output.innerHTML = slider.value;
 
+
+
 //update slider value 
 slider.oninput = function() {
   output.innerHTML = this.value;
 }
+
+//returns current value of slider
+function returnSliderValue()
+{
+  return slider.value;
+}
+
 //load 50 towns when window is loaded
-window.onLoad = loadTowns(50);
+window.onLoad = loadTowns(returnSliderValue());
 
