@@ -84,7 +84,7 @@ function loadTowns()
       .attr("cy", function(d) { return d.y; })
       .transition()
       .attr("r", 2)
-      .attr("fill", "blue");
+      .attr("fill", "blue")
 
     //add town names 
     g.selectAll("text")
