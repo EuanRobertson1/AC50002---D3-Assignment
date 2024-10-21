@@ -55,8 +55,9 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
 });
 
 //function to load the towns onto the map using the current slider value as a parameter
-function loadTowns(n = returnSliderValue())
+function loadTowns()
 {
+  let n = slider.value;
   //load towns data
   d3.json("http://34.147.162.172/Circles/Towns/" + n).then(function(data) {
     
@@ -134,5 +135,5 @@ function returnSliderValue()
 }
 
 //load 50 towns when window is loaded
-window.onLoad = loadTowns(returnSliderValue());
+window.onLoad = loadTowns();
 
