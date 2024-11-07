@@ -13,7 +13,7 @@ const projection = d3.geoMercator()
   .scale(1750) 
   .translate([width / 2, height / 2]);
 
-//Create a path generator using the projection
+//Create a path using the projection
 const path = d3.geoPath().projection(projection);
 
 //Zoom functionality - Adapted from https://stackoverflow.com/questions/69268997/d3-zoomable-choropleth-map and ChatGPT "how would i add a zoom feature to this D3 map?"
@@ -55,8 +55,9 @@ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json').then(wo
 });
 
 //function to load the towns onto the map using the current slider value as a parameter
-function loadTowns(n = returnSliderValue())
+function loadTowns()
 {
+  let n = slider.value;
   //load towns data
   d3.json("http://34.147.162.172/Circles/Towns/" + n).then(function(data) {
     
@@ -83,7 +84,7 @@ function loadTowns(n = returnSliderValue())
       .attr("cy", function(d) { return d.y; })
       .transition()
       .attr("r", 2)
-      .attr("fill", "blue");
+      .attr("fill", "blue")
 
     //add town names 
     g.selectAll("text")
@@ -134,5 +135,5 @@ function returnSliderValue()
 }
 
 //load 50 towns when window is loaded
-window.onLoad = loadTowns(returnSliderValue());
+window.onLoad = loadTowns();
 
